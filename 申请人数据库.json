@@ -1,0 +1,115 @@
+{
+    "EDU2025001": {
+        "personalInfo": {
+            "fullName": "李伟 (Li Wei)", "gender": "男", "dob": "1998-08-15", "pob": "北京市朝阳区人民医院", "birthCertNo": "BC1998081500456", "attendingPhysician": "王浩医生", "nationality": "中国",
+            "nationalId": { "idNumber": "11010519980815123X", "issuingAuthority": "北京市公安局朝阳分局", "registeredAddress": "北京市朝阳区建国路88号" },
+            "passport": { "passportNumber": "E12345678", "issuingAuthority": "北京市公安局出入境管理处", "issueDate": "2020-01-20", "expiryDate": "2030-01-19" },
+            "oldPassport": { "passportNumber": "G98765432", "issueDate": "2010-02-15", "status": "已作废" },
+            "maritalStatus": "未婚", "religion": "无", "healthStatus": "良好，无传染病史",
+            "currentAddress": "北京市海淀区双清路12号，邮编100084", "contact": { "phone": "+86 138-1234-5678", "email": "wei.li98@email.com" }
+        },
+        "familyBackground": {
+            "father": { "name": "李建军", "dob": "1972-05-10", "occupation": "高级软件工程师", "employer": "腾讯科技有限公司", "workAddress": "深圳市南山区高新科技园腾讯大厦8F", "employeeId": "TX-EMP-20210789", "annualIncome": "¥540,000", "hrContact": "王敏, +86 755-8601-3388" },
+            "mother": { "name": "张静", "dob": "1974-03-12", "occupation": "主治医师", "employer": "北京协和医院内科部", "workAddress": "北京市东城区帅府园一号", "professionalId": "DOC-BJXH-20200612-002", "annualIncome": "¥384,000", "hrContact": "刘芳, +86 10-6915-6114" },
+            "familyAnnualIncome": "约人民币92.4万"
+        },
+        "educationInfo": {
+            "applicationDegree": "博士 (Doctor of Philosophy in AI)", "录取院校": "牛津大学 (University of Oxford)",
+            "casNumber": "CXYZ12345", "admissionConfirmationRef": "ADM-2025-0712-UKOX",
+            "courseStartDate": "2025-10-01", "courseEndDate": "2029-09-30", "tuition": "全额奖学金",
+            "academicHistory": { "degree": "本科", "university": "清华大学 (计算机科学与技术)", "gpa": "3.95/4.0" },
+            "languageScores": { "ielts": "8.0 (各项不低于7.5)", "toefl": "115" }
+        },
+        "financialInfo": { "sponsorship": "全额奖学金 + 父母担保", "proofOfDeposit": "¥500,000 定期存款 (已存超过1年)", "bankStatementNotes": "父母银行流水稳定，家庭年收入高，财务状况极佳" },
+        "visaHistory": {
+            "previousVisas": [{ "country": "法国", "type": "申根旅游", "year": "2019" }, { "country": "日本", "type": "短期研修", "year": "2023" }],
+            "refusalHistory": [], "exitEntryRecord": "记录良好，无逾期"
+        },
+        "interviewRecord": {
+            "date": "2025-07-15", "officerId": "UKVI-BJ-20250715-03", "outcome": "表现优异", "notes": "对研究方向有深刻理解，沟通能力强。",
+            "officerScores": { "学业规划": "5/5", "资金可靠性": "5/5", "回国意愿": "4/5", "沟通能力": "5/5" }
+        },
+        "systemAssessment": { "riskLevel": "低", "riskNotes": "无任何风险点", "overallResult": "优良 - 强烈建议批准", "officerId": "A-102", "status": "审核中" }
+    },
+    "EDU2025002": {
+        "personalInfo": { "fullName": "张梅 (Zhang Mei)", "gender": "女", "dob": "2001-02-10", "pob": "上海市第一妇婴保健院", "nationality": "中国", "passport": { "passportNumber": "E87654321", "issueDate": "2023-05-15", "expiryDate": "2033-05-14" }, "maritalStatus": "未婚", "currentAddress": "中国上海市徐汇区淮海中路1010号", "contact": { "email": "zhang.mei.art@example.com" } },
+        "familyBackground": { "father": { "name": "张建国", "occupation": "企业主", "employer": "上海美味餐饮管理有限公司" }, "mother": { "name": "王丽", "occupation": "企业主", "employer": "上海美味餐饮管理有限公司" }, "familyAnnualIncome": "约人民币80万" },
+        "educationInfo": { "applicationDegree": "硕士 (Master of Fine Arts)", "录取院校": "纽约大学 (New York University)", "academicHistory": { "degree": "本科", "university": "复旦大学", "gpa": "3.6/4.0" }, "languageScores": { "ielts": "7.0 (口语6.5)", "toefl": "105" } },
+        "financialInfo": { "sponsorship": "父母担保", "proofOfDeposit": "¥600,000 (可覆盖两年费用)", "bankStatementNotes": "家庭企业经营良好，资金来源清晰。" },
+        "visaHistory": { "previousVisas": [{ "country": "美国", "type": "夏令营B2", "year": "2019" }], "refusalHistory": [], "exitEntryRecord": "记录良好" },
+        "interviewRecord": { "outcome": "免面试" },
+        "systemAssessment": { "riskLevel": "低", "riskNotes": "口语小分略低，但不影响整体评估", "overallResult": "中好 - 建议批准", "officerId": "B-215", "status": "审核中" }
+    },
+    "EDU2025003": {
+        "personalInfo": { "fullName": "王浩 (Wang Hao)", "gender": "男", "dob": "2002-11-25", "pob": "广东省深圳市妇幼保健院", "nationality": "中国", "passport": { "passportNumber": "G55566677", "issueDate": "2022-09-01", "expiryDate": "2032-08-31" }, "currentAddress": "中国深圳市南山区科技园南区", "contact": { "phone": "+86 18688889999" } },
+        "familyBackground": { "father": { "name": "王志强", "occupation": "项目经理" }, "mother": { "name": "陈静", "occupation": "会计" }, "familyAnnualIncome": "约人民币45万" },
+        "educationInfo": { "applicationDegree": "本科 (Bachelor of Computer Science)", "录取院校": "滑铁卢大学 (University of Waterloo)", "academicHistory": { "degree": "高中", "gpa": "3.1/4.0 (换算)" }, "languageScores": { "ielts": "6.5" } },
+        "financialInfo": { "sponsorship": "父母担保", "proofOfDeposit": "¥400,000 (可覆盖1.5年费用)", "bankStatementNotes": "资金符合要求，父母工作稳定。" },
+        "visaHistory": { "previousVisas": [], "refusalHistory": [], "exitEntryRecord": "无" },
+        "interviewRecord": { "outcome": "免面试" },
+        "systemAssessment": { "riskLevel": "低", "riskNotes": "无明显风险", "overallResult": "良好 - 建议批准", "officerId": "C-551", "status": "审核中" }
+    },
+    "EDU2025004": {
+        "personalInfo": { "fullName": "张伟 (Zhang Wei)", "gender": "男", "dob": "2002-06-18", "pob": "中国江苏省南京市鼓楼区", "nationality": "中国", "nationalId": { "idNumber": "320106200206180099" }, "passport": { "passportNumber": "EA2345678", "issueDate": "2022-03-15", "expiryDate": "2032-03-14" }, "maritalStatus": "未婚", "healthStatus": "良好", "currentAddress": "中国江苏省南京市中山北路188号", "temporaryAddress": "学生宿舍, University Square, Melbourne VIC 3000, Australia", "contact": { "phone": "+86 139 0000 8888", "email": "zhangwei_edu2025@example.com" } },
+        "familyBackground": { "father": { "name": "张国强", "dob": "1975-08-10", "occupation": "国有银行支行经理", "annualIncome": "¥350,000" }, "mother": { "name": "李红梅", "dob": "1978-02-22", "occupation": "高级教师", "annualIncome": "¥180,000" }, "familyAnnualIncome": "约人民币53万" },
+        "educationInfo": { "applicationDegree": "硕士 (Master of Data Science)", "录取院校": "墨尔本大学 (University of Melbourne)", "academicHistory": { "degree": "本科", "university": "南京大学 (计算机科学与技术)", "gpa": "3.65/4.0" }, "languageScores": { "ielts": "7.0 (口语6.5)" } },
+        "financialInfo": { "sponsorship": "父母共同担保", "proofOfDeposit": "¥350,000 定期存款", "bankStatementNotes": "近12个月流水，存款稳定。但近期有¥150,000转入，已解释为理财赎回。" },
+        "visaHistory": { "previousVisas": [{ "country": "新加坡", "type": "旅游", "year": "2022" }, { "country": "日本", "type": "交换学习", "year": "2023" }], "refusalHistory": [{ "country": "加拿大", "type": "留学签证", "year": "2023", "reason": "资金证明不足", "applicantExplanation": "当时因材料准备不充分，银行流水未及时更新，已在本次申请补足。" }], "exitEntryRecord": "记录良好" },
+        "interviewRecord": { "date": "2025-03-10", "officerId": "VO-117", "outcome": "中等偏好", "transcript": [{ "q": "为什么选择墨尔本大学？", "a": "数据科学硕士排名全球前列，课程结合实习和研究..." }, { "q": "为何有加拿大拒签记录？", "a": "当时因材料准备不充分，银行流水未及时更新，已在本次申请补足。" }], "officerScores": { "英语沟通": "4/5", "学业规划": "5/5", "资金可靠性": "4/5", "回国意愿": "3/5" }, "notes": "因有拒签史，系统提示“需二次审核”。" },
+        "systemAssessment": { "riskLevel": "中等", "riskNotes": "存在拒签史，回国意愿需重点考量。", "overallResult": "上中 - 需主管签字确认", "officerId": "AU-345", "status": "二次审核" }
+    },
+    "EDU2025005": {
+        "personalInfo": { "fullName": "孙强 (Sun Qiang)", "gender": "男", "dob": "2004-05-20", "nationality": "中国", "passport": { "passportNumber": "SH4567890", "expiryDate": "2034-01-31" }, "currentAddress": "中国山东省青岛市" },
+        "familyBackground": { "familyAnnualIncome": "约人民币25万" },
+        "educationInfo": { "applicationDegree": "副学士", "录取院校": "绿河社区学院 (Green River College)", "academicHistory": { "degree": "高中", "gpa": "2.6/4.0" }, "languageScores": { "ielts": "6.0" } },
+        "financialInfo": { "proofOfDeposit": "¥250,000 (刚好满足I-20要求)", "bankStatementNotes": "无大额存款历史" },
+        "visaHistory": { "refusalHistory": [], "exitEntryRecord": "无" },
+        "interviewRecord": { "outcome": "待安排" },
+        "systemAssessment": { "riskLevel": "中等", "riskNotes": "学习计划模糊，职业目标不明确。", "overallResult": "中中 - 建议面试", "officerId": "B-215", "status": "审核中" }
+    },
+    "EDU2025006": {
+        "personalInfo": { "fullName": "周芳 (Zhou Fang)", "gender": "女", "dob": "2003-09-01", "nationality": "中国", "passport": { "passportNumber": "CD7890123", "expiryDate": "2033-10-09" } },
+        "familyBackground": { "familyAnnualIncome": "约人民币30万" },
+        "educationInfo": { "applicationDegree": "文凭课程 (Diploma)", "录取院校": "百年理工学院 (Centennial College)", "academicHistory": { "gpa": "2.4/4.0" }, "languageScores": { "ielts": "6.0 (写作5.5)" } },
+        "financialInfo": { "proofOfDeposit": "¥300,000", "bankStatementNotes": "符合基本要求" },
+        "visaHistory": { "refusalHistory": [{ "country": "加拿大", "year": "2024", "reason": "材料不全" }], "exitEntryRecord": "无" },
+        "interviewRecord": { "outcome": "免面试" },
+        "systemAssessment": { "riskLevel": "中等", "riskNotes": "有拒签史，但已补交材料。语言单项偏低。", "overallResult": "良中 - 可考虑批准", "officerId": "C-551", "status": "审核中" }
+    },
+    "EDU2025007": {
+        "personalInfo": { "fullName": "吴磊 (Wu Lei)", "gender": "男", "dob": "2002-03-12", "nationality": "中国", "passport": { "passportNumber": "HZ0123456", "expiryDate": "2032-05-19" } },
+        "familyBackground": { "sponsorship": "叔叔担保" },
+        "educationInfo": { "applicationDegree": "文凭课程 (Diploma)", "录取院校": "霍姆斯学院 (Holmes Institute)", "academicHistory": { "gpa": "2.2/4.0" } },
+        "financialInfo": { "bankStatementNotes": "担保人收入证明不稳定" },
+        "visaHistory": { "refusalHistory": [{ "country": "澳大利亚", "year": "2023", "reason": "GTE不满足" }] },
+        "interviewRecord": { "outcome": "待安排" },
+        "systemAssessment": { "riskLevel": "高", "riskNotes": "院校录取门槛低，GTE声明说服力不足。", "overallResult": "上一般 - 风险较高", "officerId": "AU-345", "status": "审核中" }
+    },
+    "EDU2025008": {
+        "personalInfo": { "fullName": "郑丽 (Zheng Li)", "gender": "女", "dob": "2003-08-08", "nationality": "中国", "passport": { "passportNumber": "FJ9876543", "expiryDate": "2032-12-31" } },
+        "familyBackground": {},
+        "educationInfo": { "applicationDegree": "语言课程", "录取院校": "东京银星日本语学校", "academicHistory": { "gpa": "2.1/4.0" } },
+        "financialInfo": { "bankStatementNotes": "资金不足以覆盖第一年学费及生活费" },
+        "visaHistory": { "refusalHistory": [{ "country": "日本", "year": "2024", "reason": "学习目的不明确" }] },
+        "interviewRecord": { "outcome": "不建议安排" },
+        "systemAssessment": { "riskLevel": "高", "riskNotes": "资金严重不足，有同类型拒签史。", "overallResult": "中一般 - 倾向拒签", "officerId": "J-088", "status": "审核中" }
+    },
+    "EDU2025009": {
+        "personalInfo": { "fullName": "钱悦 (Qian Yue)", "gender": "男", "dob": "2005-11-30", "nationality": "中国", "passport": { "passportNumber": "JS5432109", "expiryDate": "2034-03-14" } },
+        "familyBackground": {},
+        "educationInfo": { "applicationDegree": "大学预科", "录取院校": "INTO Manchester", "academicHistory": { "gpa": "1.9/4.0" } },
+        "financialInfo": { "bankStatementNotes": "资金由亲属短期借款，真实性存疑。" },
+        "visaHistory": { "refusalHistory": [{ "country": "英国", "year": "2023", "reason": "资金来源不明" }, { "country": "英国", "year": "2024", "reason": "学习规划不足" }] },
+        "interviewRecord": { "outcome": "不建议安排" },
+        "systemAssessment": { "riskLevel": "极高", "riskNotes": "多次拒签，学术背景差，资金问题严重。", "overallResult": "良一般 - 强烈建议拒签", "officerId": "A-102", "status": "审核中" }
+    },
+    "EDU2025010": {
+        "personalInfo": { "fullName": "何夏 (He Xia)", "gender": "女", "dob": "2003-07-22", "nationality": "中国", "passport": { "passportNumber": "LN1237894", "expiryDate": "2033-07-31" } },
+        "familyBackground": { "familyAnnualIncome": "约人民币35万" },
+        "educationInfo": { "applicationDegree": "本科", "录取院校": "慕尼黑工业大学", "academicHistory": { "gpa": "2.7/4.0" }, "languageScores": { "testdaf": "TDN 4" } },
+        "financialInfo": { "proofOfDeposit": "€11,208 限制性存款", "bankStatementNotes": "符合德国签证要求" },
+        "visaHistory": { "refusalHistory": [], "exitEntryRecord": "无" },
+        "interviewRecord": { "outcome": "免面试" },
+        "systemAssessment": { "riskLevel": "中等", "riskNotes": "学术和语言成绩均刚达标。", "overallResult": "中中 - 可考虑批准", "officerId": "D-040", "status": "审核中" }
+    }
+}

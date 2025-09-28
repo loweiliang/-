@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教育签证审理系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .card-header {
+            background-color: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+            font-weight: 600;
+        }
+        .status-已批准 { color: #166534; background-color: #dcfce7; border: 1px solid #4ade80; }
+        .status-已拒签 { color: #991b1b; background-color: #fee2e2; border: 1px solid #f87171; }
+        .status-审核中, .status-已提交, .status-面试已约, .status-二次审核 { color: #9a3412; background-color: #ffedd5; border: 1px solid #fb923c; }
+        
+        .section-card { margin-bottom: 1.5rem; }
+        .section-title { font-size: 1.25rem; font-weight: 600; color: #111827; }
+        .subsection { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb; }
+        .subsection-title { font-size: 1rem; font-weight: 600; color: #374151; margin-bottom: 1rem; }
+        
+        .data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+        .data-pair { display: flex; flex-direction: column; }
+        .data-label { font-size: 0.875rem; color: #6b7280; margin-bottom: 0.25rem; }
+        .data-value { font-size: 0.95rem; color: #1f2937; word-break: break-all; }
+        
+        .interview-qa { margin-bottom: 1rem; padding-left: 1rem; border-left: 2px solid #d1d5db; }
+        .interview-q { font-weight: 600; color: #4b5563; }
+        .interview-a { color: #1f2937; }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">教育签证审理系统</h1>
+            <p class="text-gray-500 mt-2">内部专用 | Ver 10.0 (在线版)</p>
+        </header>
+
+        <div class="max-w-5xl mx-auto bg-white p-6 rounded-xl shadow-md">
+             <input type="text" id="applicationIdInput" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-300 text-lg" placeholder="请输入签证申请编号以自动加载...">
+        </div>
+
+        <div id="resultsContainer" class="mt-8">
+            <!-- 申请人资料将在此处动态加载 -->
+        </div>
+    </div>
+
+    <script>
+        let applicantsData = {}; // 全局变量，用于存储从JSON加载的数据
+
+        const keyMap = {
+            fullName: "全名", gender: "性别", dob: "出生日期", pob: "出生地点", birthCertNo: "出生证明号", attendingPhysician: "主治医师", nationality: "国籍",
+            idNumber: "身份证号", issuingAuthority: "签发机关", registeredAddress: "登记地址",
+            passportNumber: "护照号码", issueDate: "签发日期", expiryDate: "有效期至",
+            maritalStatus: "婚姻状况", religion: "宗教信仰", healthStatus: "健康状况",
+            currentAddress: "现住地址", temporaryAddress: "临时住宿地址",
+            phone: "电话号码", email: "电子邮箱",
+            father: "父亲信息", mother: "母亲信息", name: "姓名", occupation: "职业", employer: "工作单位", workAddress: "工作地址", employeeId: "员工号", professionalId: "执业编号", annualIncome: "年收入", hrContact: "HR联系方式", familyAnnualIncome: "家庭总年收入",
+            applicationDegree: "申请学位", 录取院校: "录取院校", casNumber: "CAS号", admissionConfirmationRef: "招生办确认函", courseStartDate: "开学日期", courseEndDate: "预计毕业日期", tuition: "学费",
+            academicHistory: "最高学历", degree: "学位", university: "毕业院校", gpa: "GPA",
+            languageScores: "语言成绩", ielts: "雅思", toefl: "托福", testdaf: "德福",
+            sponsorship: "资助方式", proofOfDeposit: "存款证明", bankStatementNotes: "银行流水备注",
+            previousVisas: "出入境记录", refusalHistory: "拒签历史", exitEntryRecord: "出入境记录", country: "国家", type: "签证类型", year: "年份", reason: "拒签理由", applicantExplanation: "申请人解释",
+            date: "面试日期", officerId: "面试官/负责官员", outcome: "面试结果/当前状态", transcript: "面试摘要", notes: "面试官备注/风险备注", officerScores: "面试官评估",
+            riskLevel: "风险等级", overallResult: "总体意见", status: "当前状态"
+        };
+        
+        const applicationIdInput = document.getElementById('applicationIdInput');
+        const resultsContainer = document.getElementById('resultsContainer');
+
+        // *** 核心改动：页面加载时自动获取数据 ***
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('data.json') // 读取同目录下的 data.json 文件
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('网络错误，无法加载数据文件！');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    applicantsData = data;
+                    console.log("申请人数据已成功加载。");
+                })
+                .catch(error => {
+                    console.error('加载申请人数据时出错:', error);
+                    displayMessage('无法加载申请人数据，请检查 data.json 文件是否存在或网络连接是否正常。');
+                });
+        });
+
+        applicationIdInput.addEventListener('input', () => {
+             const appId = applicationIdInput.value.trim().toUpperCase();
+             if (appId.length === 10) { 
+                const applicant = applicantsData[appId];
+                if (applicant) {
+                    displayApplicantData(applicant, appId);
+                } else {
+                    displayMessage(`资料库中未找到编号为 ${appId} 的申请人档案。`);
+                }
+             } else if (appId.length === 0) {
+                resultsContainer.innerHTML = ''; 
+             }
+        });
+        
+        function handleDecision(appId, decision) {
+            const reasonInput = document.getElementById('decisionReasonInput');
+            const reason = reasonInput.value.trim();
+            if (!reason) {
+                alert('请输入审批理由！'); return;
+            }
+            const applicant = applicantsData[appId];
+            applicant.systemAssessment.status = decision;
+            applicant.systemAssessment.riskNotes += `\n[决定] 审批理由: ${reason}`;
+            displayApplicantData(applicant, appId);
+            // 注意：这个修改只会存在于当前页面，刷新后会丢失。
+            // 要永久保存，需要更复杂的后端技术。
+        }
+
+        function displayMessage(message) {
+            resultsContainer.innerHTML = `<div class="max-w-5xl mx-auto bg-yellow-100 border-yellow-400 text-yellow-700 border px-4 py-3 rounded-lg text-center" role="alert">${message}</div>`;
+        }
+        
+        function getStatusClass(status) { return `status-${status}` || 'bg-gray-200 text-gray-800'; }
+
+        function formatValue(data) {
+            if (data === null || data === undefined) return '<span class="text-gray-400">N/A</span>';
+            if (Array.isArray(data)) {
+                 if (data.length === 0) return '无';
+                 return data.map(item => `<div>${formatValue(item)}</div>`).join('');
+            }
+            if (typeof data === 'object') {
+                return Object.entries(data)
+                    .map(([key, value]) => `<div class="data-pair"><span class="data-label">${keyMap[key] || key}</span><span class="data-value">${formatValue(value)}</span></div>`)
+                    .join('');
+            }
+            return String(data).replace(/\n/g, '<br/>');
+        }
+
+        function renderSection(title, data, subsections) {
+            if (!data) return '';
+            let content = '';
+            if (subsections) {
+                content = subsections.map(sub => {
+                    const subData = data[sub.key];
+                    if (!subData) return '';
+                    const subContent = Object.entries(subData)
+                        .map(([key, value]) => `<div class="data-pair"><span class="data-label">${keyMap[key] || key}</span><span class="data-value">${formatValue(value)}</span></div>`)
+                        .join('');
+                    return `<div class="subsection">
+                                <h4 class="subsection-title">${sub.title}</h4>
+                                <div class="data-grid">${subContent}</div>
+                            </div>`;
+                }).join('');
+            }
+            return `<div class="section-card card"><div class="p-6"><h3 class="section-title">${title}</h3>${content}</div></div>`;
+        }
+        
+        function renderInterviewSection(title, data) {
+             if (!data || !data.outcome) return '';
+             let transcriptHTML = '';
+             if (data.transcript && data.transcript.length > 0) {
+                 transcriptHTML = data.transcript.map(item => `<div class="interview-qa"><p class="interview-q">问: ${item.q}</p><p class="interview-a">答: ${item.a}</p></div>`).join('');
+             }
+             const scoresHTML = data.officerScores ? Object.entries(data.officerScores).map(([key, value]) => `<div class="data-pair"><span class="data-label">${key}</span><span class="data-value">${value}</span></div>`).join('') : '';
+
+             return `<div class="section-card card"><div class="p-6">
+                        <h3 class="section-title">${title}</h3>
+                        <div class="subsection">
+                             <div class="data-grid">
+                                <div class="data-pair"><span class="data-label">面试日期</span><span class="data-value">${data.date || 'N/A'}</span></div>
+                                <div class="data-pair"><span class="data-label">面试官编号</span><span class="data-value">${data.officerId || 'N/A'}</span></div>
+                                <div class="data-pair"><span class="data-label">面试结果</span><span class="data-value">${data.outcome}</span></div>
+                             </div>
+                        </div>
+                        ${scoresHTML ? `<div class="subsection"><h4 class="subsection-title">面试官评估</h4><div class="data-grid">${scoresHTML}</div></div>` : ''}
+                        ${transcriptHTML ? `<div class="subsection"><h4 class="subsection-title">面试摘要</h4>${transcriptHTML}</div>` : ''}
+                        ${data.notes ? `<div class="subsection"><h4 class="subsection-title">面试官备注</h4><p class="data-value">${data.notes}</p></div>` : ''}
+                    </div></div>`;
+        }
+
+        function displayApplicantData(applicant, appId) {
+            const isFinalStatus = applicant.systemAssessment.status === '已批准' || applicant.systemAssessment.status === '已拒签';
+            
+            const personalInfoHTML = renderSection('1. 个人与身份信息', applicant.personalInfo, [
+                {key: 'passport', title: '护照信息'}, {key: 'nationalId', title: '国民身份证'}, {key: 'contact', title: '联系方式'},
+            ]);
+            
+            const familyHTML = renderSection('2. 家庭与经济背景', applicant.familyBackground, [
+                {key: 'father', title: '父亲信息'}, {key: 'mother', title: '母亲信息'}
+            ]);
+            
+            const educationHTML = renderSection('3. 教育与录取情况', applicant.educationInfo, [
+                {key: 'academicHistory', title: '最高学历'}, {key: 'languageScores', title: '语言成绩'}
+            ]);
+            
+            const financialHTML = `<div class="section-card card"><div class="p-6"><h3 class="section-title">4. 财务状况</h3><div class="subsection"><div class="data-grid">
+                <div class="data-pair"><span class="data-label">资助方式</span><span class="data-value">${applicant.financialInfo.sponsorship}</span></div>
+                <div class="data-pair"><span class="data-label">存款证明</span><span class="data-value">${applicant.financialInfo.proofOfDeposit}</span></div>
+                <div class="data-pair"><span class="data-label">银行流水备注</span><span class="data-value">${applicant.financialInfo.bankStatementNotes}</span></div>
+            </div></div></div></div>`;
+
+            const visaHistoryHTML = `<div class="section-card card"><div class="p-6"><h3 class="section-title">5. 签证与出入境历史</h3>
+                <div class="subsection"><h4 class="subsection-title">出入境记录</h4><p>${formatValue(applicant.visaHistory.previousVisas)}</p></div>
+                <div class="subsection"><h4 class="subsection-title">拒签历史</h4><p>${formatValue(applicant.visaHistory.refusalHistory)}</p></div>
+            </div></div>`;
+
+            const interviewHTML = renderInterviewSection('6. 面试记录', applicant.interviewRecord);
+            
+            const assessmentHTML = `<div class="section-card card"><div class="p-6"><h3 class="section-title">7. 系统评估与状态</h3><div class="data-grid">
+                 <div class="data-pair"><span class="data-label">风险等级</span><span class="data-value">${applicant.systemAssessment.riskLevel}</span></div>
+                 <div class="data-pair"><span class="data-label">总体意见</span><span class="data-value">${applicant.systemAssessment.overallResult}</span></div>
+                 <div class="data-pair"><span class="data-label">负责官员</span><span class="data-value">${applicant.systemAssessment.officerId}</span></div>
+                 <div class="data-pair"><span class="data-label">风险备注</span><span class="data-value">${formatValue(applicant.systemAssessment.notes || applicant.systemAssessment.riskNotes)}</span></div>
+            </div></div></div>`;
+
+            resultsContainer.innerHTML = `
+            <div class="max-w-5xl mx-auto">
+                <div class="mb-6 card">
+                    <div class="p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <h2 class="text-2xl font-bold text-gray-900">${applicant.personalInfo.fullName}</h2>
+                            <p class="text-gray-500">申请编号: ${appId}</p>
+                        </div>
+                        <div class="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium ${getStatusClass(applicant.systemAssessment.status)}">
+                             <span>状态: ${applicant.systemAssessment.status}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                ${!isFinalStatus ? `
+                <div class="card mb-6">
+                    <div class="card-header px-6 py-3"><h3 class="text-lg text-gray-700">审理操作</h3></div>
+                    <div class="p-6 space-y-4">
+                        <div>
+                            <label for="decisionReasonInput" class="block text-sm font-medium text-gray-700 mb-1">审批理由 <span class="text-red-500">*</span></label>
+                            <textarea id="decisionReasonInput" class="w-full px-3 py-2 border border-gray-300 rounded-lg" rows="3" placeholder="请输入详细的审批理由..."></textarea>
+                        </div>
+                        <div class="flex gap-4">
+                            <button onclick="handleDecision('${appId}', '已批准')" class="w-full bg-green-600 text-white font-semibold py-2 rounded-lg">批准</button>
+                            <button onclick="handleDecision('${appId}', '已拒签')" class="w-full bg-red-600 text-white font-semibold py-2 rounded-lg">拒签</button>
+                        </div>
+                    </div>
+                </div>` : ''}
+
+                ${personalInfoHTML}
+                ${familyHTML}
+                ${educationHTML}
+                ${financialHTML}
+                ${visaHistoryHTML}
+                ${interviewHTML}
+                ${assessmentHTML}
+            </div>
+            `;
+        }
+    </script>
+</body>
+</html>
